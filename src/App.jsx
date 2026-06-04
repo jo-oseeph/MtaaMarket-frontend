@@ -7,6 +7,7 @@ import Register from "./pages/Register";
 import Profile from "./pages/Profile";
 import AuthCallback from "./pages/AuthCallback";
 import Navbar from "./components/Navbar";
+import Home from "./pages/Home";
 
 
 import ProtectedRoute from "./routes/ProtectedRoute";
@@ -21,6 +22,7 @@ export default function App() {
       <Navbar />  
 
     <Routes>
+         <Route path="/" element={<Home />} />
       <Route
         path="/login"
         element={<Login />}
