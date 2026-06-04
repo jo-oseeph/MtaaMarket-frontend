@@ -8,6 +8,7 @@ import Profile from "./pages/Profile";
 import AuthCallback from "./pages/AuthCallback";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
+import ProductDetails from "./pages/ProductDetails";
 
 
 import ProtectedRoute from "./routes/ProtectedRoute";
@@ -32,6 +33,10 @@ export default function App() {
         path="/register"
         element={<Register />}
       />
+      <Route
+  path="/listing/:id"
+  element={<ProductDetails />}
+/>
 
       {/* <Route
         path="/forgot-password"

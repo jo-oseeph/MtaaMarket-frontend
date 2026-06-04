@@ -1,54 +1,63 @@
-import "./listingCard.css";
+import { useNavigate } from "react-router-dom";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { IoTimeOutline } from "react-icons/io5";
 import { FiInfo } from "react-icons/fi";
 
+import "./listingCard.css";
+
 export default function ListingCard({ listing }) {
+  const navigate = useNavigate();
+
   return (
     <div className="listing-card">
 
-      {/* Image */}
       <div className="image-wrapper">
         <img
-          src={listing.image}
+          src={listing.images[0]}
           alt={listing.title}
         />
       </div>
 
-      {/* Content */}
       <div className="card-content">
 
         <h3 className="price">
-          KES {listing.price}
+          KES {listing.price.toLocaleString()}
         </h3>
 
-        <p className="title">
+        <h4 className="title">
           {listing.title}
-        </p>
+        </h4>
 
         <div className="meta">
+
           <span>
             <FaMapMarkerAlt />
-            {listing.area} • {listing.subCounty}
+            {listing.area}, {listing.county}
           </span>
 
           <span>
             <IoTimeOutline />
             {listing.age}
           </span>
+
         </div>
 
         <p className="seller">
           by {listing.sellerName}
         </p>
 
-        {/* More Info Button */}
-        <button className="more-btn">
+        <button
+          className="more-btn"
+          onClick={() =>
+            navigate(`/listing/${listing.id}`)
+          }
+        >
           <FiInfo />
           More Info
         </button>
 
       </div>
+
     </div>
   );
 }
