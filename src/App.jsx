@@ -6,6 +6,7 @@ import Register from "./pages/Register";
 // import ResetPassword from "./pages/ResetPassword";
 import Profile from "./pages/Profile";
 import AuthCallback from "./pages/AuthCallback";
+import Navbar from "./components/Navbar";
 
 
 import ProtectedRoute from "./routes/ProtectedRoute";
@@ -16,6 +17,9 @@ import AdminDashboard from "./pages/AdminDashboard";
 
 export default function App() {
   return (
+    <>
+      <Navbar />  
+
     <Routes>
       <Route
         path="/login"
@@ -69,5 +73,6 @@ export default function App() {
         element={<Navigate to="/login" replace />}
       />
     </Routes>
+    </>
   );
 }
