@@ -1,0 +1,47 @@
+.hero {
+  padding: 60px 20px;
+  text-align: center;
+  background: #F9FAFB;
+}
+
+.hero-title {
+  font-size: 28px;
+  font-weight: 800;
+  color: #1F2937;
+}
+
+.hero-subtitle {
+  margin-top: 8px;
+  color: #6B7280;
+}
+
+.hero-search {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+  background: white;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #E5E7EB;
+  gap: 8px;
+}
+
+.input-group input {
+  border: none;
+  outline: none;
+}
+
+.hero-search button {
+  background: #16A34A;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 10px;
+}
