@@ -5,6 +5,8 @@ import Register from "./pages/Register";
 // import ForgotPassword from "./pages/ForgotPassword";
 // import ResetPassword from "./pages/ResetPassword";
 import Profile from "./pages/Profile";
+import AuthCallback from "./pages/AuthCallback";
+
 
 import ProtectedRoute from "./routes/ProtectedRoute";
 import AdminRoute from "./routes/AdminRoute";
@@ -34,6 +36,7 @@ export default function App() {
         path="/reset-password"
         element={<ResetPassword />}
       /> */}
+      <Route path="/auth/callback" element={<AuthCallback />} />
 
       <Route
         path="/profile"

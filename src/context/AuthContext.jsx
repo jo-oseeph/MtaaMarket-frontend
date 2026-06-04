@@ -15,13 +15,12 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Sync MongoDB user
+  // Sync MongoDB user (safe + reusable)
   const syncUser = async () => {
     try {
       const { data } = await api.post("/auth/sync-user");
 
       setUser(data);
-
       return data;
     } catch (err) {
       console.error("syncUser failed:", err);
@@ -31,11 +30,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   // Register
-  const register = async (
-    fullname,
-    email,
-    password
-  ) => {
+  const register = async (fullname, email, password) => {
     return await supabase.auth.signUp({
       email,
       password,
@@ -47,16 +42,12 @@ export const AuthProvider = ({ children }) => {
     });
   };
 
-  // Login
-  const login = async (
-    email,
-    password
-  ) => {
-    const result =
-      await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
+  // Login (email/password)
+  const login = async (email, password) => {
+    const result = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
 
     if (result.error) {
       return {
@@ -73,12 +64,12 @@ export const AuthProvider = ({ children }) => {
     };
   };
 
-  // Google Login
+  // Google Login (IMPORTANT FIX HERE)
   const loginWithGoogle = async () => {
     return await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: window.location.origin,
+        redirectTo: `${window.location.origin}/auth/callback`,
       },
     });
   };
@@ -87,11 +78,11 @@ export const AuthProvider = ({ children }) => {
   const logout = async () => {
     await supabase.auth.signOut();
 
-    setUser(null);
     setSession(null);
+    setUser(null);
   };
 
-  // Restore session
+  // Restore session (initial app load ONLY)
   useEffect(() => {
     const initialize = async () => {
       try {
@@ -104,8 +95,8 @@ export const AuthProvider = ({ children }) => {
         if (session) {
           await syncUser();
         }
-      } catch (error) {
-        console.error(error);
+      } catch (err) {
+        console.error("Session init error:", err);
       } finally {
         setLoading(false);
       }
@@ -119,11 +110,8 @@ export const AuthProvider = ({ children }) => {
       async (event, session) => {
         setSession(session);
 
-        if (
-          session &&
-          (event === "SIGNED_IN" ||
-            event === "TOKEN_REFRESHED")
-        ) {
+        // IMPORTANT: only handle real login events
+        if (event === "SIGNED_IN") {
           await syncUser();
         }
 
