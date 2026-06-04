@@ -1,7 +1,10 @@
 import ListingCard from "../components/ListingCard/ListingCard";
 import "./home.css";
+import Hero from "../components/Hero";
 
 export default function Home() {
+
+
 
   const listings = [
     {
@@ -23,12 +26,22 @@ export default function Home() {
       subCounty: "Embakasi",
       age: "1 day ago",
       sellerName: "John"
+    },
+     {
+      id: 3,
+      title: "Leather Sofa Set",
+      price: 45000,
+      image: "https://via.placeholder.com/400",
+      area: "Utawala",
+      subCounty: "Embakasi",
+      age: "1 day ago",
+      sellerName: "John"
     }
   ];
 
   return (
     <div className="home">
-
+        <Hero />
       <h2 className="section-title">
         Featured Listings
       </h2>
@@ -40,5 +53,6 @@ export default function Home() {
       </div>
 
     </div>
+
   );
 }
