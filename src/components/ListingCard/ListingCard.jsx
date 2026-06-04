@@ -8,20 +8,23 @@ import "./listingCard.css";
 export default function ListingCard({ listing }) {
   const navigate = useNavigate();
 
+  const image =
+    listing.images?.[0] ||
+    "https://via.placeholder.com/400x300?text=No+Image";
+
   return (
     <div className="listing-card">
 
+      {/* IMAGE */}
       <div className="image-wrapper">
-        <img
-          src={listing.images[0]}
-          alt={listing.title}
-        />
+        <img src={image} alt={listing.title} />
       </div>
 
+      {/* CONTENT */}
       <div className="card-content">
 
         <h3 className="price">
-          KES {listing.price.toLocaleString()}
+          KES {listing.price?.toLocaleString()}
         </h3>
 
         <h4 className="title">
@@ -48,16 +51,13 @@ export default function ListingCard({ listing }) {
 
         <button
           className="more-btn"
-          onClick={() =>
-            navigate(`/listing/${listing.id}`)
-          }
+          onClick={() => navigate(`/listing/${listing.id}`)}
         >
           <FiInfo />
           More Info
         </button>
 
       </div>
-
     </div>
   );
 }
