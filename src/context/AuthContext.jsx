@@ -16,15 +16,20 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   // Sync MongoDB user
- const syncUser = async () => {
-  try {
-    const { data } = await api.post("/auth/sync-user");
-    setUser(data);
-  } catch (err) {
-    console.error("syncUser failed:", err);
-    setUser(null); // prevent crash
-  }
-};
+  const syncUser = async () => {
+    try {
+      const { data } = await api.post("/auth/sync-user");
+
+      setUser(data);
+
+      return data;
+    } catch (err) {
+      console.error("syncUser failed:", err);
+      setUser(null);
+      return null;
+    }
+  };
+
   // Register
   const register = async (
     fullname,
@@ -53,11 +58,19 @@ export const AuthProvider = ({ children }) => {
         password,
       });
 
-    if (!result.error) {
-      await syncUser();
+    if (result.error) {
+      return {
+        success: false,
+        error: result.error,
+      };
     }
 
-    return result;
+    const mongoUser = await syncUser();
+
+    return {
+      success: true,
+      user: mongoUser,
+    };
   };
 
   // Google Login
@@ -65,8 +78,7 @@ export const AuthProvider = ({ children }) => {
     return await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo:
-          window.location.origin,
+        redirectTo: window.location.origin,
       },
     });
   };
@@ -82,17 +94,21 @@ export const AuthProvider = ({ children }) => {
   // Restore session
   useEffect(() => {
     const initialize = async () => {
-      const {
-        data: { session },
-      } = await supabase.auth.getSession();
+      try {
+        const {
+          data: { session },
+        } = await supabase.auth.getSession();
 
-      setSession(session);
+        setSession(session);
 
-      if (session) {
-        await syncUser();
+        if (session) {
+          await syncUser();
+        }
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
       }
-
-      setLoading(false);
     };
 
     initialize();
@@ -100,12 +116,18 @@ export const AuthProvider = ({ children }) => {
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange(
-      async (_, session) => {
+      async (event, session) => {
         setSession(session);
 
-        if (session) {
+        if (
+          session &&
+          (event === "SIGNED_IN" ||
+            event === "TOKEN_REFRESHED")
+        ) {
           await syncUser();
-        } else {
+        }
+
+        if (event === "SIGNED_OUT") {
           setUser(null);
         }
       }
@@ -126,6 +148,7 @@ export const AuthProvider = ({ children }) => {
         login,
         logout,
         loginWithGoogle,
+        syncUser,
       }}
     >
       {children}

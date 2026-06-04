@@ -11,58 +11,48 @@ export default function Login() {
     loginWithGoogle,
   } = useAuth();
 
-  const [email, setEmail] =
-    useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const [password, setPassword] =
-    useState("");
-
-  const [error, setError] =
-    useState("");
-
-  const [loading, setLoading] =
-    useState(false);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    setError("");
     setLoading(true);
 
-    const { error } = await login(
-      email,
-      password
-    );
+    const result = await login(email, password);
 
-    if (error) {
-      setError(error.message);
-      setLoading(false);
+    setLoading(false);
+
+    if (!result.success) {
+      setError(result.error?.message || "Login failed");
       return;
     }
 
-    navigate("/profile");
+    const role = result.user?.role;
+
+    if (role === "admin") {
+      navigate("/admin");
+    } else {
+      navigate("/dashboard");
+    }
   };
 
   return (
     <div className="auth-container">
-      <form
-        className="auth-card"
-        onSubmit={handleSubmit}
-      >
+      <form className="auth-card" onSubmit={handleSubmit}>
         <h2>Welcome Back</h2>
 
-        {error && (
-          <p className="error">
-            {error}
-          </p>
-        )}
+        {error && <p className="error">{error}</p>}
 
         <input
           type="email"
           placeholder="Email"
           value={email}
-          onChange={(e) =>
-            setEmail(e.target.value)
-          }
+          onChange={(e) => setEmail(e.target.value)}
           required
         />
 
@@ -70,21 +60,12 @@ export default function Login() {
           type="password"
           placeholder="Password"
           value={password}
-          onChange={(e) =>
-            setPassword(
-              e.target.value
-            )
-          }
+          onChange={(e) => setPassword(e.target.value)}
           required
         />
 
-        <button
-          type="submit"
-          className="btn-primary"
-        >
-          {loading
-            ? "Logging In..."
-            : "Login"}
+        <button type="submit" className="btn-primary">
+          {loading ? "Logging In..." : "Login"}
         </button>
 
         <button
@@ -95,10 +76,7 @@ export default function Login() {
           Sign in with Google
         </button>
 
-        <Link
-          to="/forgot-password"
-          className="forgot-link"
-        >
+        <Link to="/forgot-password" className="forgot-link">
           Forgot Password?
         </Link>
 
