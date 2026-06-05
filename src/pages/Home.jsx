@@ -1,8 +1,24 @@
+import { useEffect, useState } from "react";
 import ListingCard from "../components/ListingCard/ListingCard";
-import listings from "../data/listings";
+import { getListings } from "../services/listingApi";
 import "./home.css";
 
 export default function Home() {
+  const [listings, setListings] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getListings();
+        setListings(data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <div className="home">
 
@@ -13,7 +29,7 @@ export default function Home() {
       <div className="grid">
         {listings.slice(0, 3).map((item) => (
           <ListingCard
-            key={item.id}
+            key={item._id || item.id}
             listing={item}
           />
         ))}

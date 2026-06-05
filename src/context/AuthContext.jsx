@@ -15,7 +15,6 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Sync MongoDB user (safe + reusable)
   const syncUser = async () => {
     try {
       const { data } = await api.post("/auth/sync-user");
@@ -29,20 +28,16 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // Register
   const register = async (fullname, email, password) => {
     return await supabase.auth.signUp({
       email,
       password,
       options: {
-        data: {
-          full_name: fullname,
-        },
+        data: { full_name: fullname },
       },
     });
   };
 
-  // Login (email/password)
   const login = async (email, password) => {
     const result = await supabase.auth.signInWithPassword({
       email,
@@ -64,7 +59,6 @@ export const AuthProvider = ({ children }) => {
     };
   };
 
-  // Google Login (IMPORTANT FIX HERE)
   const loginWithGoogle = async () => {
     return await supabase.auth.signInWithOAuth({
       provider: "google",
@@ -74,15 +68,13 @@ export const AuthProvider = ({ children }) => {
     });
   };
 
-  // Logout
   const logout = async () => {
     await supabase.auth.signOut();
-
+    localStorage.removeItem("supabase-session");
     setSession(null);
     setUser(null);
   };
 
-  // Restore session (initial app load ONLY)
   useEffect(() => {
     const initialize = async () => {
       try {
@@ -93,10 +85,15 @@ export const AuthProvider = ({ children }) => {
         setSession(session);
 
         if (session) {
+          localStorage.setItem(
+            "supabase-session",
+            JSON.stringify(session)
+          );
+
           await syncUser();
         }
       } catch (err) {
-        console.error("Session init error:", err);
+        console.error(err);
       } finally {
         setLoading(false);
       }
@@ -110,7 +107,15 @@ export const AuthProvider = ({ children }) => {
       async (event, session) => {
         setSession(session);
 
-        // IMPORTANT: only handle real login events
+        if (session) {
+          localStorage.setItem(
+            "supabase-session",
+            JSON.stringify(session)
+          );
+        } else {
+          localStorage.removeItem("supabase-session");
+        }
+
         if (event === "SIGNED_IN") {
           await syncUser();
         }
@@ -121,9 +126,7 @@ export const AuthProvider = ({ children }) => {
       }
     );
 
-    return () => {
-      subscription.unsubscribe();
-    };
+    return () => subscription.unsubscribe();
   }, []);
 
   return (
@@ -144,5 +147,4 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
-export const useAuth = () =>
-  useContext(AuthContext);
+export const useAuth = () => useContext(AuthContext);
