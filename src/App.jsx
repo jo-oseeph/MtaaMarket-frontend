@@ -15,7 +15,7 @@ import ProtectedRoute from "./routes/ProtectedRoute";
 import AdminRoute from "./routes/AdminRoute";
 import CreateListing from "./pages/CreateListing";
 
-import Dashboard from "./pages/Dashboard";
+import SellerDashboard from "./pages/Dashboard";
 import AdminDashboard from "./pages/AdminDashboard";
 
 export default function App() {
@@ -62,7 +62,7 @@ export default function App() {
           path="/dashboard"
           element={
             <ProtectedRoute>
-              <Dashboard />
+              <SellerDashboard />
             </ProtectedRoute>
           }
         />

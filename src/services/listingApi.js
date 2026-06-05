@@ -23,3 +23,11 @@ export const createListing = async (formData) => {
 
   return res.data;
 };
+
+export const getMyListings = async () => {
+  const res = await api.get(
+    "/listings/my-listings"
+  );
+
+  return res.data;
+};
