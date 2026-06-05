@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import listings from "../data/listings";
+import ListingCard from "../components/ListingCard/ListingCard";
 import "../styles/items.css";
 
 export default function Items() {
@@ -62,38 +63,15 @@ export default function Items() {
         </p>
       )}
 
-      <div className="items-grid">
-        {filteredListings.length > 0 ? (
-          filteredListings.map(
-            (item) => (
-              <div
-                key={item.id}
-                className="listing-card"
-              >
-                <img
-                  src={item.image}
-                  alt={item.title}
-                />
-
-                <h3>{item.title}</h3>
-
-                <p>
-                  Ksh{" "}
-                  {item.price.toLocaleString()}
-                </p>
-
-                <span>
-                  {item.location}
-                </span>
-              </div>
-            )
-          )
-        ) : (
-          <p>
-            No listings found.
-          </p>
-        )}
-      </div>
+     <div className="items-grid">
+  {filteredListings.length > 0 ? (
+    filteredListings.map((listing) => (
+      <ListingCard key={listing.id} listing={listing} />
+    ))
+  ) : (
+    <p>No listings found.</p>
+  )}
+</div>
     </div>
   );
 }

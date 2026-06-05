@@ -9,7 +9,7 @@ import AuthCallback from "./pages/AuthCallback";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import ProductDetails from "./pages/ProductDetails";
-
+import Items from "./pages/Items";
 
 import ProtectedRoute from "./routes/ProtectedRoute";
 import AdminRoute from "./routes/AdminRoute";
@@ -20,66 +20,55 @@ import AdminDashboard from "./pages/AdminDashboard";
 export default function App() {
   return (
     <>
-      <Navbar />  
+      <Navbar />
 
-    <Routes>
-         <Route path="/" element={<Home />} />
-      <Route
-        path="/login"
-        element={<Login />}
-      />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
 
-      <Route
-        path="/register"
-        element={<Register />}
-      />
-      <Route
-  path="/listing/:id"
-  element={<ProductDetails />}
-/>
+        <Route path="/register" element={<Register />} />
+        <Route path="/listing/:id" element={<ProductDetails />} />
+        <Route path="/items" element={<Items />} />
 
-      {/* <Route
+        {/* <Route
         path="/forgot-password"
         element={<ForgotPassword />}
       /> */}
 
-      {/* <Route
+        {/* <Route
         path="/reset-password"
         element={<ResetPassword />}
       /> */}
-      <Route path="/auth/callback" element={<AuthCallback />} />
+        <Route path="/auth/callback" element={<AuthCallback />} />
 
-      <Route
-        path="/profile"
-        element={
-          <ProtectedRoute>
-            <Profile />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-  path="/dashboard"
-  element={
-    <ProtectedRoute>
-      <Dashboard />
-    </ProtectedRoute>
-  }
-/>
-      <Route
-  path="/admin"
-  element={
-    <AdminRoute>
-      <AdminDashboard />
-    </AdminRoute>
-  }
-/>
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin"
+          element={
+            <AdminRoute>
+              <AdminDashboard />
+            </AdminRoute>
+          }
+        />
 
-      {/* Fallback route */}
-      <Route
-        path="*"
-        element={<Navigate to="/login" replace />}
-      />
-    </Routes>
+        {/* Fallback route */}
+        <Route path="*" element={<Navigate to="/login" replace />} />
+      </Routes>
     </>
   );
 }
