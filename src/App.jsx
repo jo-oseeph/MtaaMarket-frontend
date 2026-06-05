@@ -13,6 +13,7 @@ import Items from "./pages/Items";
 
 import ProtectedRoute from "./routes/ProtectedRoute";
 import AdminRoute from "./routes/AdminRoute";
+import CreateListing from "./pages/CreateListing";
 
 import Dashboard from "./pages/Dashboard";
 import AdminDashboard from "./pages/AdminDashboard";
@@ -39,6 +40,14 @@ export default function App() {
         path="/reset-password"
         element={<ResetPassword />}
       /> */}
+        <Route
+  path="/create-listing"
+  element={
+    <ProtectedRoute>
+      <CreateListing />
+    </ProtectedRoute>
+  }
+/>
         <Route path="/auth/callback" element={<AuthCallback />} />
 
         <Route
