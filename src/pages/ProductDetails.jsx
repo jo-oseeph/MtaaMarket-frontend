@@ -1,5 +1,7 @@
 import { useParams } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+import { getListingById } from "../services/listingApi";
 
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { FaPhoneAlt } from "react-icons/fa";
@@ -7,78 +9,61 @@ import { FaPhoneAlt } from "react-icons/fa";
 import "./productDetails.css";
 
 export default function ProductDetails() {
-
   const { id } = useParams();
 
-  const listing = {
-    id,
-    title: "Samsung 55 Inch Smart TV",
+  const [listing, setListing] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [activeImage, setActiveImage] = useState("");
 
-    price: 35000,
+  useEffect(() => {
+    const fetchListing = async () => {
+      try {
+        const data = await getListingById(id);
+        setListing(data);
+        setActiveImage(data.images?.[0] || "");
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-    county: "Nairobi",
-    area: "Mwiki",
+    fetchListing();
+  }, [id]);
 
-    sellerName: "Brian",
-
-    phoneNumber: "0712345678",
-
-    age: "2 days ago",
-
-    category: "Electronics",
-
-    description:
-      "Selling a Samsung 55-inch Smart TV in excellent condition. All ports working perfectly and remote included.",
-
-    images: [
-      "https://images.unsplash.com/photo-1593784991095-a205069470b6",
-      "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1",
-      "https://images.unsplash.com/photo-1461151304267-38535e780c79"
-    ]
-  };
-
-  const [activeImage, setActiveImage] =
-    useState(listing.images[0]);
+  if (loading) return <p>Loading...</p>;
+  if (!listing) return <p>Listing not found</p>;
 
   return (
     <div className="product-page">
 
       <div className="product-container">
 
-        {/* Left */}
-
+        {/* LEFT */}
         <div className="gallery">
 
           <div className="main-image">
-            <img
-              src={activeImage}
-              alt={listing.title}
-            />
+            <img src={activeImage} alt={listing.title} />
           </div>
 
           <div className="thumbnails">
-
-            {listing.images.map((img, index) => (
+            {listing.images?.map((img, index) => (
               <img
                 key={index}
                 src={img}
                 alt=""
-                onClick={() =>
-                  setActiveImage(img)
-                }
+                onClick={() => setActiveImage(img)}
               />
             ))}
-
           </div>
 
         </div>
 
-        {/* Right */}
-
+        {/* RIGHT */}
         <div className="product-info">
 
           <h2 className="price">
-            KES {listing.price.toLocaleString()}
+            KES {listing.price?.toLocaleString()}
           </h2>
 
           <h1>{listing.title}</h1>
@@ -88,20 +73,11 @@ export default function ProductDetails() {
             {listing.area}, {listing.county}
           </p>
 
-          <p>
-            Category: {listing.category}
-          </p>
+          <p>Posted: {listing.createdAt ? new Date(listing.createdAt).toDateString() : ""}</p>
 
-          <p>
-            Posted: {listing.age}
-          </p>
-
-          <p>
-            Seller: {listing.sellerName}
-          </p>
+          <p>Seller: {listing.sellerName}</p>
 
           <div className="contact-box">
-
             <p>{listing.phoneNumber}</p>
 
             <a
@@ -111,21 +87,16 @@ export default function ProductDetails() {
               <FaPhoneAlt />
               Contact Owner
             </a>
-
           </div>
 
         </div>
 
       </div>
 
-      {/* Description */}
-
+      {/* DESCRIPTION */}
       <section className="description-section">
-
         <h3>Description</h3>
-
         <p>{listing.description}</p>
-
       </section>
 
     </div>

@@ -51,7 +51,7 @@ export default function ListingCard({ listing }) {
 
         <button
           className="more-btn"
-          onClick={() => navigate(`/listing/${listing.id}`)}
+         onClick={() => navigate(`/listing/${listing._id}`)}
         >
           <FiInfo />
           More Info
