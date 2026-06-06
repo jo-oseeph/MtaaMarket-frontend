@@ -1,36 +1,45 @@
+import { useNavigate } from "react-router-dom";
 import "./hero.css";
-import { FaSearch, FaMapMarkerAlt } from "react-icons/fa";
 
 export default function Hero() {
+  const navigate = useNavigate();
+
   return (
-    <div className="hero">
+    <section className="hero">
 
-      <h1 className="hero-title">
-        Find Second-Hand Items Near You
-      </h1>
+      <div className="hero-overlay" />
 
-      <p className="hero-subtitle">
-        Search by item, location or category
-      </p>
+      <div className="hero-content">
 
-      <div className="hero-search">
+        <h1>
+          Buy & Sell Anything Around You
+        </h1>
 
-        <div className="input-group">
-          <FaSearch className="icon" />
-          <input type="text" placeholder="What are you looking for?" />
+        <p>
+          Discover second-hand deals in your area or list items you no longer need.
+          Fast, local, and trusted.
+        </p>
+
+        <div className="hero-actions">
+
+          <button
+            className="primary-btn"
+            onClick={() => navigate("/items")}
+          >
+            Discover Items
+          </button>
+
+          <button
+            className="secondary-btn"
+            onClick={() => navigate("/create-listing")}
+          >
+            Sell Item
+          </button>
+
         </div>
-
-        <div className="input-group">
-          <FaMapMarkerAlt className="icon" />
-          <input type="text" placeholder="Location (e.g Kasarani)" />
-        </div>
-
-        <button>
-          Search
-        </button>
 
       </div>
 
-    </div>
+    </section>
   );
 }

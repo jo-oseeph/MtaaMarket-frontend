@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import ListingCard from "../components/ListingCard/ListingCard";
 import { getListings } from "../services/listingApi";
+import Hero from "../components/Hero";
 import "./home.css";
 
 export default function Home() {
@@ -21,7 +22,7 @@ export default function Home() {
 
   return (
     <div className="home">
-
+      <Hero />
       <h2 className="section-title">
         Featured Listings
       </h2>
