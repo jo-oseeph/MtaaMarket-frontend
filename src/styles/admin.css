@@ -1,0 +1,116 @@
+.admin-dashboard {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.admin-dashboard h1 {
+  margin-bottom: 1.5rem;
+  color: #111827;
+}
+
+.admin-stats {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(200px, 1fr)
+  );
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.25rem;
+  box-shadow: 0 2px 10px
+    rgba(0, 0, 0, 0.05);
+}
+
+.stat-card h3 {
+  font-size: 0.95rem;
+  color: #6b7280;
+  margin-bottom: 0.5rem;
+}
+
+.stat-card p {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #16a34a;
+}
+
+.admin-table {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 10px
+    rgba(0, 0, 0, 0.05);
+}
+
+.admin-table h2 {
+  margin-bottom: 1rem;
+  color: #111827;
+}
+
+.admin-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.admin-table th {
+  text-align: left;
+  padding: 1rem;
+  background: #f9fafb;
+  color: #374151;
+  font-weight: 600;
+}
+
+.admin-table td {
+  padding: 1rem;
+  border-top: 1px solid #e5e7eb;
+  vertical-align: middle;
+}
+
+.admin-table img {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.admin-table button {
+  border: none;
+  cursor: pointer;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  font-weight: 600;
+  margin-right: 0.5rem;
+}
+
+.admin-table button:first-child {
+  background: #16a34a;
+  color: white;
+}
+
+.admin-table button:last-child {
+  background: #ef4444;
+  color: white;
+}
+
+.admin-table button:hover {
+  opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+  .admin-dashboard {
+    padding: 1rem;
+  }
+
+  .admin-table {
+    overflow-x: auto;
+  }
+
+  .admin-table table {
+    min-width: 700px;
+  }
+}
