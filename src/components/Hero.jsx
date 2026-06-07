@@ -6,40 +6,33 @@ export default function Hero() {
 
   return (
     <section className="hero">
-
       <div className="hero-overlay" />
 
-      <div className="hero-content">
+      <div className="hero-inner">
+        <div className="hero-content">
+          <span className="hero-badge">🛍️ Secondhand. Local. Trusted.</span>
 
-        <h1>
-          Buy & Sell Anything Around You
-        </h1>
+          <h1>
+            Give Old Things
+            <span className="hero-accent"> New Homes</span>
+          </h1>
 
-        <p>
-          Discover second-hand deals in your area or list items you no longer need.
-          Fast, local, and trusted.
-        </p>
+          <p>
+            Browse pre-loved items listed by people near you — furniture,
+            electronics, clothes, and more. List what you no longer need and
+            let someone else treasure it.
+          </p>
 
-        <div className="hero-actions">
-
-          <button
-            className="primary-btn"
-            onClick={() => navigate("/items")}
-          >
-            Discover Items
-          </button>
-
-          <button
-            className="secondary-btn"
-            onClick={() => navigate("/create-listing")}
-          >
-            Sell Item
-          </button>
-
+          <div className="hero-actions">
+            <button className="primary-btn" onClick={() => navigate("/items")}>
+              Browse Listings
+            </button>
+            <button className="secondary-btn" onClick={() => navigate("/create-listing")}>
+              Sell an Item
+            </button>
+          </div>
         </div>
-
       </div>
-
     </section>
   );
 }

@@ -1,9 +1,11 @@
+import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
+
 import {
   FaUserCircle,
   FaSignOutAlt,
-  FaTachometerAlt,
-  FaShieldAlt,
+  FaBars,
+  FaTimes,
 } from "react-icons/fa";
 
 import { useAuth } from "../context/AuthContext";
@@ -13,9 +15,14 @@ import "./navbar.css";
 export default function Navbar() {
   const { user, logout } = useAuth();
 
+  const [menuOpen, setMenuOpen] =
+    useState(false);
+
+  const closeMenu = () =>
+    setMenuOpen(false);
+
   return (
     <header className="navbar">
-
       <div className="navbar-container">
 
         <Link
@@ -25,28 +32,98 @@ export default function Navbar() {
           MtaaMarket
         </Link>
 
-        <nav className="nav-links">
+        <button
+          className="menu-toggle"
+          onClick={() =>
+            setMenuOpen(!menuOpen)
+          }
+        >
+          {menuOpen ? (
+            <FaTimes />
+          ) : (
+            <FaBars />
+          )}
+        </button>
 
-          <NavLink to="/">
+        <nav
+          className={`nav-links ${
+            menuOpen ? "active" : ""
+          }`}
+        >
+
+          <NavLink
+            to="/"
+            onClick={closeMenu}
+          >
             Home
           </NavLink>
 
-          <NavLink to="/items">
+          <NavLink
+            to="/items"
+            onClick={closeMenu}
+          >
             Browse Items
           </NavLink>
 
           {user && (
-            <NavLink to="/dashboard">
+            <NavLink
+              to="/dashboard"
+              onClick={closeMenu}
+            >
               Dashboard
             </NavLink>
           )}
 
           {user?.role === "admin" && (
-            <NavLink to="/admin">
+            <NavLink
+              to="/admin"
+              onClick={closeMenu}
+            >
               Admin
             </NavLink>
           )}
 
+          {!user ? (
+            <>
+              <Link
+                to="/login"
+                className="mobile-login"
+                onClick={closeMenu}
+              >
+                Login
+              </Link>
+
+              <Link
+                to="/register"
+                className="mobile-register"
+                onClick={closeMenu}
+              >
+                Register
+              </Link>
+            </>
+          ) : (
+            <>
+              <Link
+                to="/profile"
+                className="mobile-profile"
+                onClick={closeMenu}
+              >
+                <FaUserCircle />
+                {user.fullname?.split(" ")[0]}
+              </Link>
+
+              <button
+                className="mobile-logout"
+                onClick={() => {
+                  logout();
+                  closeMenu();
+                }}
+              >
+                <FaSignOutAlt />
+                Logout
+              </button>
+            </>
+          )}
         </nav>
 
         <div className="nav-actions">
@@ -75,7 +152,6 @@ export default function Navbar() {
                 className="profile-btn"
               >
                 <FaUserCircle />
-
                 {user.fullname?.split(" ")[0]}
               </Link>
 
@@ -92,7 +168,6 @@ export default function Navbar() {
         </div>
 
       </div>
-
     </header>
   );
 }
