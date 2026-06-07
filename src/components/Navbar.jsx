@@ -1,62 +1,98 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import {
+  FaUserCircle,
+  FaSignOutAlt,
+  FaTachometerAlt,
+  FaShieldAlt,
+} from "react-icons/fa";
+
 import { useAuth } from "../context/AuthContext";
-import "../styles/navbar.css";
+
+import "./navbar.css";
 
 export default function Navbar() {
   const { user, logout } = useAuth();
-  const navigate = useNavigate();
-
-  const [location, setLocation] = useState("");
-
-  const handleSearch = (e) => {
-    e.preventDefault();
-
-    if (!location.trim()) return;
-
-    navigate(`/items?location=${encodeURIComponent(location)}`);
-  };
 
   return (
-    <nav className="navbar">
-      {/* Logo */}
-      <div className="logo" onClick={() => navigate("/")}>
-        MtaaMarket
+    <header className="navbar">
+
+      <div className="navbar-container">
+
+        <Link
+          to="/"
+          className="logo"
+        >
+          MtaaMarket
+        </Link>
+
+        <nav className="nav-links">
+
+          <NavLink to="/">
+            Home
+          </NavLink>
+
+          <NavLink to="/items">
+            Browse Items
+          </NavLink>
+
+          {user && (
+            <NavLink to="/dashboard">
+              Dashboard
+            </NavLink>
+          )}
+
+          {user?.role === "admin" && (
+            <NavLink to="/admin">
+              Admin
+            </NavLink>
+          )}
+
+        </nav>
+
+        <div className="nav-actions">
+
+          {!user ? (
+            <>
+              <Link
+                to="/login"
+                className="login-btn"
+              >
+                <FaUserCircle />
+                Login
+              </Link>
+
+              <Link
+                to="/register"
+                className="register-btn"
+              >
+                Register
+              </Link>
+            </>
+          ) : (
+            <>
+              <Link
+                to="/profile"
+                className="profile-btn"
+              >
+                <FaUserCircle />
+
+                {user.fullname?.split(" ")[0]}
+              </Link>
+
+              <button
+                className="logout-btn"
+                onClick={logout}
+              >
+                <FaSignOutAlt />
+                Logout
+              </button>
+            </>
+          )}
+
+        </div>
+
       </div>
 
-      {/* Search */}
-      <form className="search-box" onSubmit={handleSearch}>
-        <input
-          type="text"
-          placeholder="Search by location (e.g Nairobi, Kilimani...)"
-          value={location}
-          onChange={(e) => setLocation(e.target.value)}
-        />
-        <button type="submit">Search</button>
-      </form>
-
-      {/* Right section */}
-      <div className="nav-right">
-        {!user ? (
-          <>
-            <Link to="/login">Login</Link>
-            <Link to="/register" className="btn">
-              Register
-            </Link>
-          </>
-        ) : (
-          <div className="user-menu">
-            <span
-              onClick={() => navigate("/profile")}
-              className="avatar"
-            >
-              {user.fullname?.charAt(0) || "U"}
-            </span>
-
-            <button onClick={logout}>Logout</button>
-          </div>
-        )}
-      </div>
-    </nav>
+    </header>
   );
 }
