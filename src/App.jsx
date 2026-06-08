@@ -6,7 +6,7 @@ import Register from "./pages/Register";
 // import ResetPassword from "./pages/ResetPassword";
 import Profile from "./pages/Profile";
 import AuthCallback from "./pages/AuthCallback";
-import Navbar from "./components/Navbar";
+// import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import ProductDetails from "./pages/ProductDetails";
 import Items from "./pages/Items";
@@ -21,7 +21,7 @@ import AdminDashboard from "./pages/AdminDashboard";
 export default function App() {
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
 
       <Routes>
         <Route path="/" element={<Home />} />

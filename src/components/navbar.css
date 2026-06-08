@@ -1,179 +1,362 @@
+/* ── Variables ─────────────────────────────────────── */
+:root {
+  --nav-height: 64px;
+  --green: #16a34a;
+  --green-dark: #15803d;
+  --green-light: #f0fdf4;
+  --text-primary: #111827;
+  --text-muted: #6b7280;
+  --border: #e5e7eb;
+  --surface: #ffffff;
+  --red: #dc2626;
+}
+
+/* ── Base ──────────────────────────────────────────── */
 .navbar {
   position: sticky;
   top: 0;
   z-index: 1000;
+  width: 100%;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  transition: box-shadow 0.2s ease;
+}
 
-  background: #fff;
-  border-bottom: 1px solid #e5e7eb;
+.navbar--scrolled {
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.07);
 }
 
 .navbar-container {
-  max-width: 1300px;
+  width: 100%;
+  max-width: 1200px;
   margin: 0 auto;
-
-  padding: 1rem 1.5rem;
-
+  height: var(--nav-height);
+  padding: 0 1.5rem;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-}
-
-.logo {
-  text-decoration: none;
-  color: #16a34a;
-
-  font-size: 1.5rem;
-  font-weight: 800;
-}
-
-.nav-links {
-  display: flex;
   gap: 2rem;
-  align-items: center;
+  box-sizing: border-box;
 }
 
-.nav-links a {
-  text-decoration: none;
-  color: #374151;
-  font-weight: 500;
-}
-
-.nav-links a.active {
-  color: #16a34a;
-}
-
-.nav-actions {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-
-.login-btn,
-.profile-btn,
-.register-btn,
-.logout-btn {
-  border: none;
-  text-decoration: none;
-  cursor: pointer;
-
+/* ── Logo ──────────────────────────────────────────── */
+.navbar-logo {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  text-decoration: none;
+  flex-shrink: 0;
+}
 
-  padding: 0.75rem 1rem;
-  border-radius: 10px;
+.navbar-logo__icon {
+  width: 32px;
+  height: 32px;
+  background: var(--green);
+  color: white;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: -0.05em;
+}
 
+.navbar-logo__text {
+  font-size: 1.15rem;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.navbar-logo__text strong {
+  color: var(--green);
+}
+
+/* ── Desktop Nav ───────────────────────────────────── */
+.navbar-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  flex: 1;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.85rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  transition: color 0.15s, background 0.15s;
+}
+
+.nav-link svg {
+  font-size: 0.8rem;
+  opacity: 0.7;
+}
+
+.nav-link:hover {
+  color: var(--text-primary);
+  background: #f9fafb;
+}
+
+.nav-link--active {
+  color: var(--green);
+  background: var(--green-light);
   font-weight: 600;
 }
 
-.login-btn,
-.profile-btn {
+.nav-link--active svg {
+  opacity: 1;
+}
+
+/* ── Desktop Actions ───────────────────────────────── */
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.12s, box-shadow 0.15s;
+  white-space: nowrap;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--text-primary);
+  border: 1.5px solid var(--border);
+}
+
+.btn--ghost:hover {
+  background: #f9fafb;
+  border-color: #d1d5db;
+}
+
+.btn--primary {
+  background: var(--green);
+  color: white;
+  box-shadow: 0 2px 8px rgba(22, 163, 74, 0.3);
+}
+
+.btn--primary:hover {
+  background: var(--green-dark);
+  box-shadow: 0 4px 12px rgba(22, 163, 74, 0.4);
+}
+
+.btn--sell {
+  background: #fff7ed;
+  color: #c2410c;
+  border: 1.5px solid #fed7aa;
+}
+
+.btn--sell:hover {
+  background: #ffedd5;
+}
+
+.btn--user {
+  background: #f9fafb;
+  color: var(--text-primary);
+  border: 1.5px solid var(--border);
+}
+
+.btn--user:hover {
   background: #f3f4f6;
-  color: #111827;
 }
 
-.register-btn {
-  background: #16a34a;
-  color: white;
+.btn--logout {
+  background: transparent;
+  color: var(--red);
+  border: 1.5px solid #fecaca;
+  padding: 0.5rem 0.65rem;
 }
 
-.logout-btn {
-  background: #f97316;
-  color: white;
+.btn--logout:hover {
+  background: #fef2f2;
 }
 
-.menu-toggle {
+/* ── Mobile Toggle ─────────────────────────────────── */
+.navbar-toggle {
   display: none;
   background: none;
   border: none;
   cursor: pointer;
-
-  font-size: 1.5rem;
+  color: var(--text-primary);
+  font-size: 1.2rem;
+  padding: 0.4rem;
+  border-radius: 6px;
+  margin-left: auto;
+  transition: background 0.15s;
 }
 
-.mobile-login,
-.mobile-register,
-.mobile-profile,
-.mobile-logout {
+.navbar-toggle:hover {
+  background: #f3f4f6;
+}
+
+/* ── Mobile Drawer ─────────────────────────────────── */
+.navbar-drawer {
   display: none;
+  position: fixed;
+  top: var(--nav-height);
+  right: 0;
+  width: 300px;
+  height: calc(100dvh - var(--nav-height));
+  background: var(--surface);
+  border-left: 1px solid var(--border);
+  box-shadow: -8px 0 32px rgba(0, 0, 0, 0.08);
+  flex-direction: column;
+  padding: 1.5rem;
+  gap: 1.5rem;
+  transform: translateX(100%);
+  transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  box-sizing: border-box;
+  overflow-y: auto;
 }
 
-@media (max-width: 768px) {
-  .menu-toggle {
-    display: block;
-  }
+.navbar-drawer--open {
+  transform: translateX(0);
+}
 
-  .nav-actions {
+.navbar-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  top: var(--nav-height);
+  background: rgba(0, 0, 0, 0.25);
+  z-index: 998;
+  backdrop-filter: blur(2px);
+}
+
+.drawer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.drawer-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  transition: background 0.15s, color 0.15s;
+}
+
+.drawer-link svg {
+  font-size: 0.95rem;
+}
+
+.drawer-link:hover {
+  background: #f9fafb;
+  color: var(--text-primary);
+}
+
+.drawer-link--active {
+  background: var(--green-light);
+  color: var(--green);
+  font-weight: 600;
+}
+
+.drawer-auth {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  border-top: 1px solid var(--border);
+  padding-top: 1.5rem;
+  margin-top: auto;
+}
+
+.drawer-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.85rem 1rem;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.12s;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.drawer-btn--ghost {
+  background: #f9fafb;
+  color: var(--text-primary);
+  border: 1.5px solid var(--border);
+}
+
+.drawer-btn--primary {
+  background: var(--green);
+  color: white;
+}
+
+.drawer-btn--sell {
+  background: #fff7ed;
+  color: #c2410c;
+  border: 1.5px solid #fed7aa;
+}
+
+.drawer-btn--user {
+  background: #f9fafb;
+  color: var(--text-primary);
+  border: 1.5px solid var(--border);
+}
+
+.drawer-btn--logout {
+  background: #fef2f2;
+  color: var(--red);
+}
+
+/* ── Responsive ────────────────────────────────────── */
+@media (max-width: 768px) {
+  .navbar-nav,
+  .navbar-actions {
     display: none;
   }
 
-  .nav-links {
-    position: fixed;
-
-    top: 73px;
-    right: -100%;
-
-    width: 280px;
-    height: calc(100vh - 73px);
-
-    background: white;
-
-    flex-direction: column;
-    align-items: flex-start;
-
-    padding: 2rem;
-
-    gap: 1.25rem;
-
-    box-shadow:
-      -4px 0 20px
-      rgba(0, 0, 0, 0.08);
-
-    transition: 0.3s ease;
-  }
-
-  .nav-links.active {
-    right: 0;
-  }
-
-  .nav-links a {
-    width: 100%;
-  }
-
-  .mobile-login,
-  .mobile-register,
-  .mobile-profile,
-  .mobile-logout {
+  .navbar-toggle {
     display: flex;
-
-    width: 100%;
-
     align-items: center;
-    gap: 0.5rem;
-
-    text-decoration: none;
-
-    padding: 0.9rem 1rem;
-
-    border-radius: 10px;
+    justify-content: center;
   }
 
-  .mobile-login,
-  .mobile-profile {
-    background: #f3f4f6;
-    color: #111827;
+  .navbar-drawer {
+    display: flex;
+    z-index: 999;
   }
 
-  .mobile-register {
-    background: #16a34a;
-    color: white;
+  .navbar-backdrop {
+    display: block;
+    z-index: 998;
   }
+}
 
-  .mobile-logout {
-    border: none;
-    cursor: pointer;
-
-    background: #f97316;
-    color: white;
+@media (max-width: 480px) {
+  .navbar-container {
+    padding: 0 1rem;
   }
 }
