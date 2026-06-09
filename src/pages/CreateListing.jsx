@@ -53,9 +53,9 @@ export default function CreateListing() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (images.length < 2) {
+    if (images.length < 1) {
       setError(
-        "Minimum 2 images required"
+        "Minimum 1 image required"
       );
       return;
     }

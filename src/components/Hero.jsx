@@ -10,7 +10,7 @@ export default function Hero() {
 
       <div className="hero-inner">
         <div className="hero-content">
-          <span className="hero-badge">🛍️ Secondhand. Local. Trusted.</span>
+         
 
           <h1>
             Give Old Things
