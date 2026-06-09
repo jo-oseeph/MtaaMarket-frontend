@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { FaMapMarkerAlt } from "react-icons/fa";
-import { IoTimeOutline } from "react-icons/io5";
+import { FaMapMarkerAlt, FaUserCircle } from "react-icons/fa";
 import { FiInfo } from "react-icons/fi";
 import "./listingCard.css";
 
@@ -14,30 +13,28 @@ export default function ListingCard({ listing }) {
   return (
     <div className="listing-card">
       <div className="image-wrapper">
-        <img src={image} alt={listing.title} />
+        <img src={image} alt={listing.title} loading="lazy" />
       </div>
 
       <div className="card-content">
-        <h3 className="price">KES {listing.price?.toLocaleString()}</h3>
         <h4 className="title">{listing.title}</h4>
+        <h3 className="price">KES {listing.price?.toLocaleString()}</h3>
 
-        <div className="meta">
-          <span>
-            <FaMapMarkerAlt />
-            {listing.area}, {listing.county}
-          </span>
-          <span>
-            <IoTimeOutline />
-            {listing.age}
-          </span>
+        <div className="location">
+          <FaMapMarkerAlt />
+          <span>{listing.area}, {listing.county}</span>
         </div>
 
         <div className="card-footer">
-          <p className="seller">by {listing.sellerName}</p>
+          <div className="seller">
+            <FaUserCircle />
+            <span>{listing.sellerName}</span>
+          </div>
           <button
             className="more-btn"
             onClick={() => navigate(`/listing/${listing._id}`)}
-            title="More Info"
+            title="View Details"
+            aria-label="View listing details"
           >
             <FiInfo />
           </button>
