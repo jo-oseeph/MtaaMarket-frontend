@@ -1,0 +1,128 @@
+.how-section {
+  max-width: 1200px;
+  margin: 5rem auto;
+  padding: 0 1.5rem;
+}
+
+.how-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.how-tag {
+  display: inline-block;
+  color: #16a34a;
+  padding: 0.45rem 1rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.how-header h2 {
+  margin-top: 1rem;
+  font-size: 2rem;
+  color: #111827;
+}
+
+.how-header p {
+  margin-top: 0.75rem;
+  color: #6b7280;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.7;
+}
+
+.how-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.how-card {
+  background: #fff;
+  border-radius: 18px;
+  padding: 2rem;
+  cursor: pointer;
+  text-align: center;
+  border: 1px solid #e5e7eb;
+  transition: all 0.25s ease;
+}
+
+.how-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+}
+
+.how-icon {
+  width: 70px;
+  height: 70px;
+  margin: 0 auto 1rem;
+  border-radius: 50%;
+  background: #16a34a;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+}
+
+.step-number {
+  color: #16a34a;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.how-card h3 {
+  margin-top: 0.8rem;
+  color: #111827;
+  font-size: 1.1rem;
+}
+
+.how-card p {
+  margin-top: 0.7rem;
+  color: #6b7280;
+  line-height: 1.7;
+  font-size: 0.95rem;
+}
+
+.how-mobile {
+  display: none;
+}
+
+.nav-btn {
+  width: 42px;
+  height: 42px;
+  border: none;
+  border-radius: 50%;
+  background: #16a34a;
+  color: white;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.nav-btn:hover {
+  opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+  .how-grid {
+    display: none;
+  }
+
+  .how-mobile {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .mobile-card {
+    flex: 1;
+  }
+
+  .how-header h2 {
+    font-size: 1.6rem;
+  }
+}
