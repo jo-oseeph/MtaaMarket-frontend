@@ -17,22 +17,19 @@ export default function HowItWorks() {
     {
       icon: <FaSearch />,
       title: "Browse Listings",
-      description:
-        "Search verified second-hand items near your location.",
+      description: "Search verified second-hand items near your location.",
       path: "/items",
     },
     {
       icon: <FaBoxOpen />,
       title: "List Your Item",
-      description:
-        "Upload 2–3 images and publish your item for approval.",
+      description: "Upload 2–3 images and publish your item for approval.",
       path: "/create-listing",
     },
     {
       icon: <FaCheckCircle />,
       title: "Buy & Sell Safely",
-      description:
-        "Connect directly with sellers and complete deals.",
+      description: "Connect directly with sellers and complete deals.",
       path: "/items",
     },
   ];
@@ -65,20 +62,13 @@ export default function HowItWorks() {
 
         <h2>Simple Steps to Start Trading</h2>
 
-        <p>
-          A clean process to buy or sell second-hand items
-          in your area.
-        </p>
+        <p>A clean process to buy or sell second-hand items in your area.</p>
       </div>
 
       {/* DESKTOP */}
       <div className="how-grid">
         {steps.map((step, i) => (
-          <div
-            key={i}
-            className="how-card"
-            onClick={() => navigate(step.path)}
-          >
+          <div key={i} className="how-card" onClick={() => navigate(step.path)}>
             <div className="how-icon">{step.icon}</div>
 
             <span className="step-number">Step {i + 1}</span>
@@ -106,9 +96,7 @@ export default function HowItWorks() {
         >
           <div className="how-icon">{steps[current].icon}</div>
 
-          <span className="step-number">
-            Step {current + 1}
-          </span>
+          <span className="step-number">Step {current + 1}</span>
 
           <h3>{steps[current].title}</h3>
 

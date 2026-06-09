@@ -4,8 +4,8 @@ import {
   FaMapMarkedAlt,
   FaMoneyBillWave,
   FaUserCheck,
+  FaArrowRight,
 } from "react-icons/fa";
-
 import "./whyChoose.css";
 
 export default function WhyChoose() {
@@ -36,43 +36,41 @@ export default function WhyChoose() {
 
   return (
     <section className="why-section">
-      <div className="why-header">
-        <h2>Why Choose MtaaMarket</h2>
-        <p>
-          A safer, simpler way to buy and sell second-hand items locally.
-        </p>
-      </div>
+      <div className="why-inner">
 
-      <div className="why-grid">
-        {features.map((item, i) => (
-          <div className="why-card" key={i}>
-            <div className="why-icon">{item.icon}</div>
-            <h3>{item.title}</h3>
-            <p>{item.desc}</p>
-          </div>
-        ))}
-      </div>
-
-      {/* CTA SECTION */}
-      <div className="why-cta">
-        <h3>Ready to start buying or selling?</h3>
-        <p>Join thousands already trading on MtaaMarket.</p>
-
-        <div className="why-actions">
-          <button
-            className="primary-btn"
-            onClick={() => navigate("/register")}
-          >
-            Get Started
-          </button>
-
-          <button
-            className="secondary-btn"
-            onClick={() => navigate("/items")}
-          >
-            Browse Items
-          </button>
+        <div className="why-header">
+          <span className="why-tag">WHY MTAAMARKET</span>
+          <h2>Built for Trust. Built for You.</h2>
+          <p>A safer, simpler way to buy and sell second-hand items locally.</p>
         </div>
+
+        <div className="why-grid">
+          {features.map((item, i) => (
+            <div className="why-card" key={i}>
+              <div className="why-icon">{item.icon}</div>
+              <h3>{item.title}</h3>
+              <p>{item.desc}</p>
+            </div>
+          ))}
+        </div>
+
+        <div className="why-cta">
+          <div className="cta-glow" />
+          <div className="cta-content">
+            <span className="cta-tag">GET STARTED TODAY</span>
+            <h3>Ready to Start Buying or Selling?</h3>
+            <p>Join thousands already trading on MtaaMarket across Kenya.</p>
+            <div className="why-actions">
+              <button className="cta-primary" onClick={() => navigate("/register")}>
+                Create Free Account <FaArrowRight />
+              </button>
+              <button className="cta-secondary" onClick={() => navigate("/items")}>
+                Browse Items
+              </button>
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
   );
