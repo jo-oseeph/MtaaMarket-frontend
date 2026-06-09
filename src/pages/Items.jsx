@@ -1,14 +1,13 @@
 import { useMemo, useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
+import { FiSearch, FiMapPin } from "react-icons/fi";
 import ListingCard from "../components/ListingCard/ListingCard";
 import { getListings } from "../services/listingApi";
 import "../styles/items.css";
 
 export default function Items() {
   const [searchParams] = useSearchParams();
-
-  const locationQuery =
-    searchParams.get("location") || "";
+  const locationQuery = searchParams.get("location") || "";
 
   const [keyword, setKeyword] = useState("");
   const [listings, setListings] = useState([]);
@@ -25,7 +24,6 @@ export default function Items() {
         setLoading(false);
       }
     };
-
     fetchData();
   }, []);
 
@@ -33,42 +31,39 @@ export default function Items() {
     return listings.filter((item) => {
       const matchesLocation =
         !locationQuery ||
-        item.area
-          ?.toLowerCase()
-          .includes(locationQuery.toLowerCase()) ||
-        item.county
-          ?.toLowerCase()
-          .includes(locationQuery.toLowerCase());
+        item.area?.toLowerCase().includes(locationQuery.toLowerCase()) ||
+        item.county?.toLowerCase().includes(locationQuery.toLowerCase());
 
       const matchesKeyword =
         !keyword ||
-        item.title
-          ?.toLowerCase()
-          .includes(keyword.toLowerCase());
+        item.title?.toLowerCase().includes(keyword.toLowerCase());
 
       return matchesLocation && matchesKeyword;
     });
   }, [listings, locationQuery, keyword]);
 
-  if (loading) return <p>Loading listings...</p>;
+  if (loading) return <p className="items-loading">Loading listings...</p>;
 
   return (
     <div className="items-page">
       <div className="items-header">
-        <h1>Listings</h1>
+        <h1>Browse Listings</h1>
 
-        <input
-          type="text"
-          placeholder="Search item..."
-          value={keyword}
-          onChange={(e) => setKeyword(e.target.value)}
-        />
+        <div className="search-wrapper">
+          <FiSearch />
+          <input
+            type="text"
+            placeholder="Search items..."
+            value={keyword}
+            onChange={(e) => setKeyword(e.target.value)}
+          />
+        </div>
       </div>
 
       {locationQuery && (
         <p className="location-info">
-          Showing results near:{" "}
-          <strong>{locationQuery}</strong>
+          <FiMapPin />
+          Showing results near: <strong>{locationQuery}</strong>
         </p>
       )}
 
@@ -81,7 +76,10 @@ export default function Items() {
             />
           ))
         ) : (
-          <p>No listings found.</p>
+          <div className="empty-state">
+            <FiSearch />
+            <p>No listings found. Try a different search.</p>
+          </div>
         )}
       </div>
     </div>
