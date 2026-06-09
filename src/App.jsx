@@ -7,6 +7,7 @@ import Register from "./pages/Register";
 import Profile from "./pages/Profile";
 import AuthCallback from "./pages/AuthCallback";
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import ProductDetails from "./pages/ProductDetails";
 import Items from "./pages/Items";
@@ -78,6 +79,7 @@ export default function App() {
         {/* Fallback route */}
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
+      <Footer />
     </>
   );
 }
