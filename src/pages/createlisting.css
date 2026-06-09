@@ -1,0 +1,161 @@
+Now provide the css of this file to make it professional and clean and responsive and do not include comments on the files.create-listing {
+  width: 100%;
+  min-height: 100vh;
+  background: #f9fafb;
+  padding: 3rem 1.5rem 5rem;
+  box-sizing: border-box;
+}
+
+.listing-form {
+  max-width: 620px;
+  margin: 0 auto;
+  background: #ffffff;
+  border-radius: 18px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+  padding: 2.5rem 2rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.listing-form h1 {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #111827;
+  letter-spacing: -0.02em;
+  margin: 0 0 0.5rem;
+}
+
+.error {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #dc2626;
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  margin: 0;
+}
+
+.listing-form input,
+.listing-form textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 0.88rem;
+  color: #111827;
+  background: #f9fafb;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 10px;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  font-family: inherit;
+}
+
+.listing-form input::placeholder,
+.listing-form textarea::placeholder {
+  color: #9ca3af;
+}
+
+.listing-form input:focus,
+.listing-form textarea:focus {
+  border-color: #16a34a;
+  box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.1);
+  background: #ffffff;
+}
+
+.listing-form textarea {
+  resize: vertical;
+  min-height: 110px;
+  line-height: 1.6;
+}
+
+.listing-form input[type="file"] {
+  padding: 0.6rem 1rem;
+  color: #6b7280;
+  cursor: pointer;
+  background: #f9fafb;
+}
+
+.listing-form input[type="file"]::-webkit-file-upload-button {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  color: #16a34a;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.35rem 0.85rem;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-right: 0.75rem;
+  transition: background 0.15s ease;
+}
+
+.listing-form input[type="file"]::-webkit-file-upload-button:hover {
+  background: #dcfce7;
+}
+
+.upload-hint {
+  font-size: 0.75rem;
+  color: #9ca3af;
+  margin: -0.25rem 0 0;
+}
+
+.preview-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+}
+
+.preview-grid img {
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1.5px solid #e5e7eb;
+}
+
+.listing-form button[type="submit"] {
+  width: 100%;
+  padding: 0.9rem;
+  background: #16a34a;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.92rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 3px 12px rgba(22, 163, 74, 0.35);
+  transition: background 0.15s ease, transform 0.15s ease;
+  margin-top: 0.25rem;
+}
+
+.listing-form button[type="submit"]:hover:not(:disabled) {
+  background: #15803d;
+  transform: translateY(-1px);
+}
+
+.listing-form button[type="submit"]:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@media (max-width: 680px) {
+  .create-listing {
+    padding: 2rem 1rem 4rem;
+  }
+
+  .listing-form {
+    padding: 1.75rem 1.25rem;
+  }
+
+  .preview-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+  }
+
+  .preview-grid img {
+    height: 80px;
+  }
+}
