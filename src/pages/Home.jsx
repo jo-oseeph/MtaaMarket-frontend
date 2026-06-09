@@ -1,44 +1,66 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+
 import ListingCard from "../components/ListingCard/ListingCard";
+import Hero from "../components/Hero";
+
 import { getListings } from "../services/listingApi";
-import SecondHandHero from "../components/Hero";
+
 import "./home.css";
 
 export default function Home() {
   const [listings, setListings] = useState([]);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchListings = async () => {
       try {
         const data = await getListings();
         setListings(data);
-      } catch (err) {
-        console.error(err);
+      } catch (error) {
+        console.error(error);
       }
     };
-    fetchData();
+
+    fetchListings();
   }, []);
 
   return (
     <>
-      <SecondHandHero />
+      <Hero />
 
-      <div className="home">
-        <div className="section-header">
-          <h2 className="section-title">Featured Listings</h2>
-          <Link to="/items" className="section-link">View all →</Link>
-        </div>
+      <main className="home">
+        <section className="featured-section">
+          <div className="section-header">
+            <h2 className="section-title">
+              Featured Listings
+            </h2>
 
-        <div className="grid">
-          {listings.slice(0, 4).map((item) => (
-            <ListingCard
-              key={item._id || item.id}
-              listing={item}
-            />
-          ))}
-        </div>
-      </div>
+            <p className="section-subtitle">
+              Discover recently approved items from sellers near you.
+              Find great deals on electronics, furniture, fashion,
+              appliances, and more.
+            </p>
+          </div>
+
+          <div className="grid">
+            {listings.slice(0, 3).map((item) => (
+              <ListingCard
+                key={item._id}
+                listing={item}
+              />
+            ))}
+          </div>
+
+          <div className="view-more-wrapper">
+            <Link
+              to="/items"
+              className="view-more-btn"
+            >
+              View More Listings
+            </Link>
+          </div>
+        </section>
+      </main>
     </>
   );
 }
