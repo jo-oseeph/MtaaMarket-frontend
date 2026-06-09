@@ -13,24 +13,29 @@ export default function Hero() {
          
 
           <h1>
-            Give Old Things
-            <span className="hero-accent"> New Homes</span>
-          </h1>
+  Buy and Sell
+  <span className="hero-accent"> Second-Hand Items Near You</span>
+</h1>
 
-          <p>
-            Browse pre-loved items listed by people near you — furniture,
-            electronics, clothes, and more. List what you no longer need and
-            let someone else treasure it.
-          </p>
+<p>
+  Discover affordable electronics, furniture, fashion, appliances, and more from trusted local sellers. List your unused items in minutes and connect with buyers in your area.
+</p>
 
-          <div className="hero-actions">
-            <button className="primary-btn" onClick={() => navigate("/items")}>
-              Browse Listings
-            </button>
-            <button className="secondary-btn" onClick={() => navigate("/create-listing")}>
-              Sell an Item
-            </button>
-          </div>
+<div className="hero-actions">
+  <button
+    className="primary-btn"
+    onClick={() => navigate("/items")}
+  >
+    Browse Listings
+  </button>
+
+  <button
+    className="secondary-btn"
+    onClick={() => navigate("/create-listing")}
+  >
+    Sell an Item
+  </button>
+</div>
         </div>
       </div>
     </section>
