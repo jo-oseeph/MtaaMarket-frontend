@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import ListingCard from "../components/ListingCard/ListingCard";
 import Hero from "../components/Hero";
 import HowItWorks from "../components/HowItWorks";
+import WhyChoose from "../components/WhyChoose";
 
 
 import { getListings } from "../services/listingApi";
@@ -65,6 +66,7 @@ export default function Home() {
       </main>
 
       <HowItWorks />
+      <WhyChoose />
     </>
   );
 }

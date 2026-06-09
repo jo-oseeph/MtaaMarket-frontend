@@ -1,6 +1,6 @@
 .how-section {
   max-width: 1200px;
-  margin: 5rem auto;
+  margin: 1rem auto;
   padding: 0 1.5rem;
 }
 
@@ -113,14 +113,16 @@
   }
 
   .how-mobile {
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-  }
+  display: none;
+  align-items: center;
+  gap: 0.8rem;
+}
 
-  .mobile-card {
-    flex: 1;
-  }
+/* smooth swipe feel */
+.mobile-card {
+  transition: transform 0.25s ease, opacity 0.25s ease;
+  will-change: transform;
+}
 
   .how-header h2 {
     font-size: 1.6rem;

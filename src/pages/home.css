@@ -5,7 +5,7 @@
 }
 
 .featured-section {
-  padding: 5rem 0;
+  padding: 3rem 0 1.5rem;
 }
 
 .section-header {
@@ -42,7 +42,8 @@
 .view-more-wrapper {
   display: flex;
   justify-content: center;
-  margin-top: 3rem;
+  margin-top: 2.5rem;
+
 }
 
 .view-more-btn {
@@ -59,7 +60,6 @@
 .view-more-btn:hover {
   background: #15803d;
 }
-
 
 /* Tablet */
 
