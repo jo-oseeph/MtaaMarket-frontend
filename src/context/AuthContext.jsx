@@ -1,11 +1,6 @@
 /* eslint-disable react-refresh/only-export-components */
 
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 import supabase from "../services/supabaseClient";
 import api from "../services/api";
@@ -87,10 +82,7 @@ export const AuthProvider = ({ children }) => {
         setSession(session);
 
         if (session) {
-          localStorage.setItem(
-            "supabase-session",
-            JSON.stringify(session)
-          );
+          localStorage.setItem("supabase-session", JSON.stringify(session));
 
           await syncUser();
         }
@@ -105,28 +97,23 @@ export const AuthProvider = ({ children }) => {
 
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
-        setSession(session);
+    } = supabase.auth.onAuthStateChange(async (event, session) => {
+      setSession(session);
 
-        if (session) {
-          localStorage.setItem(
-            "supabase-session",
-            JSON.stringify(session)
-          );
-        } else {
-          localStorage.removeItem("supabase-session");
-        }
-
-        if (event === "SIGNED_IN") {
-          await syncUser();
-        }
-
-        if (event === "SIGNED_OUT") {
-          setUser(null);
-        }
+      if (session) {
+        localStorage.setItem("supabase-session", JSON.stringify(session));
+      } else {
+        localStorage.removeItem("supabase-session");
       }
-    );
+
+      if (event === "SIGNED_IN") {
+        await syncUser();
+      }
+
+      if (event === "SIGNED_OUT") {
+        setUser(null);
+      }
+    });
 
     return () => subscription.unsubscribe();
   }, []);
