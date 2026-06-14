@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   FaSearch,
@@ -36,20 +36,19 @@ export default function HowItWorks() {
 
   const [current, setCurrent] = useState(0);
   const total = steps.length;
+  const startX = useRef(0);
 
   const next = () => setCurrent((p) => (p + 1) % total);
   const prev = () => setCurrent((p) => (p - 1 + total) % total);
 
   // swipe support
-  let startX = 0;
-
   const handleTouchStart = (e) => {
-    startX = e.touches[0].clientX;
+    startX.current = e.touches[0].clientX;
   };
 
   const handleTouchEnd = (e) => {
     const endX = e.changedTouches[0].clientX;
-    const diff = startX - endX;
+    const diff = startX.current - endX;
 
     if (diff > 50) next(); // swipe left
     if (diff < -50) prev(); // swipe right

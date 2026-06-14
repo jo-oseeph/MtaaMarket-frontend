@@ -49,7 +49,11 @@ export default function AdminDashboard() {
   };
 
   useEffect(() => {
-    loadData();
+    const initializeData = async () => {
+      await loadData();
+    };
+
+    initializeData();
   }, []);
 
   const handleApprove =

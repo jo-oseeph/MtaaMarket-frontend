@@ -9,7 +9,7 @@ import {
   FaTrash,
 } from "react-icons/fa";
 import { getDashboardStats } from "../services/dashboardApi";
-import { getMyListings } from "../services/listingApi";
+import { getMyListings, deleteListing } from "../services/listingApi";
 import "./dashboard.css";
 
 export default function SellerDashboard() {
@@ -40,19 +40,19 @@ export default function SellerDashboard() {
     fetchData();
   }, []);
 
-  // const handleDelete = async (id) => {
-  //   if (!window.confirm("Mark this item as sold and remove it?")) return;
-  //   try {
-  //     await deleteListing(id);
-  //     setListings((prev) => prev.filter((l) => l._id !== id));
-  //     setStats((prev) => ({
-  //       ...prev,
-  //       totalListings: prev.totalListings - 1,
-  //     }));
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // };
+  const handleDelete = async (id) => {
+    if (!window.confirm("Mark this item as sold and remove it?")) return;
+    try {
+      if (typeof deleteListing === "function") await deleteListing(id);
+      setListings((prev) => prev.filter((l) => l._id !== id));
+      setStats((prev) => ({
+        ...prev,
+        totalListings: Math.max(0, prev.totalListings - 1),
+      }));
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   const statCards = [
     {

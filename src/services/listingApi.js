@@ -11,23 +11,22 @@ export const getListingById = async (id) => {
 };
 
 export const createListing = async (formData) => {
-  const res = await api.post(
-    "/listings",
-    formData,
-    {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    }
-  );
+  const res = await api.post("/listings", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
 
   return res.data;
 };
 
 export const getMyListings = async () => {
-  const res = await api.get(
-    "/listings/my-listings"
-  );
+  const res = await api.get("/listings/my-listings");
 
+  return res.data;
+};
+
+export const deleteListing = async (id) => {
+  const res = await api.delete(`/listings/${id}`);
   return res.data;
 };

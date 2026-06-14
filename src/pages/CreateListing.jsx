@@ -2,48 +2,38 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { createListing } from "../services/listingApi";
-import "./createListing.css";
-
+import "./CreateListing.css";
 
 export default function CreateListing() {
   const navigate = useNavigate();
 
-  const [loading, setLoading] =
-    useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const [error, setError] =
-    useState("");
+  const [error, setError] = useState("");
 
-  const [form, setForm] =
-    useState({
-      title: "",
-      description: "",
-      price: "",
-      county: "",
-      area: "",
-      phoneNumber: "",
-    });
+  const [form, setForm] = useState({
+    title: "",
+    description: "",
+    price: "",
+    county: "",
+    area: "",
+    phoneNumber: "",
+  });
 
-  const [images, setImages] =
-    useState([]);
+  const [images, setImages] = useState([]);
 
   const handleChange = (e) => {
     setForm({
       ...form,
-      [e.target.name]:
-        e.target.value,
+      [e.target.name]: e.target.value,
     });
   };
 
   const handleImages = (e) => {
-    const files = Array.from(
-      e.target.files
-    );
+    const files = Array.from(e.target.files);
 
     if (files.length > 3) {
-      setError(
-        "Maximum 3 images allowed"
-      );
+      setError("Maximum 3 images allowed");
       return;
     }
 
@@ -55,48 +45,28 @@ export default function CreateListing() {
     e.preventDefault();
 
     if (images.length < 1) {
-      setError(
-        "Minimum 1 image required"
-      );
+      setError("Minimum 1 image required");
       return;
     }
 
     try {
       setLoading(true);
 
-      const formData =
-        new FormData();
+      const formData = new FormData();
 
-      Object.keys(form).forEach(
-        (key) => {
-          formData.append(
-            key,
-            form[key]
-          );
-        }
-      );
-
-      images.forEach((image) => {
-        formData.append(
-          "images",
-          image
-        );
+      Object.keys(form).forEach((key) => {
+        formData.append(key, form[key]);
       });
 
-      const listing =
-        await createListing(
-          formData
-        );
+      images.forEach((image) => {
+        formData.append("images", image);
+      });
 
-      navigate(
-        `/listing/${listing._id}`
-      );
+      const listing = await createListing(formData);
+
+      navigate(`/listing/${listing._id}`);
     } catch (err) {
-      setError(
-        err?.response?.data
-          ?.message ||
-          "Failed to create listing"
-      );
+      setError(err?.response?.data?.message || "Failed to create listing");
     } finally {
       setLoading(false);
     }
@@ -104,17 +74,10 @@ export default function CreateListing() {
 
   return (
     <div className="create-listing">
-      <form
-        className="listing-form"
-        onSubmit={handleSubmit}
-      >
+      <form className="listing-form" onSubmit={handleSubmit}>
         <h1>Create Listing</h1>
 
-        {error && (
-          <p className="error">
-            {error}
-          </p>
-        )}
+        {error && <p className="error">{error}</p>}
 
         <input
           name="title"
@@ -173,36 +136,18 @@ export default function CreateListing() {
           required
         />
 
-        <p>
-          Upload 2–3 images
-        </p>
+        <p>Upload 2–3 images</p>
 
         {images.length > 0 && (
           <div className="preview-grid">
-            {images.map(
-              (
-                image,
-                index
-              ) => (
-                <img
-                  key={index}
-                  src={URL.createObjectURL(
-                    image
-                  )}
-                  alt=""
-                />
-              )
-            )}
+            {images.map((image, index) => (
+              <img key={index} src={URL.createObjectURL(image)} alt="" />
+            ))}
           </div>
         )}
 
-        <button
-          type="submit"
-          disabled={loading}
-        >
-          {loading
-            ? "Creating..."
-            : "Submit Listing"}
+        <button type="submit" disabled={loading}>
+          {loading ? "Creating..." : "Submit Listing"}
         </button>
       </form>
     </div>
