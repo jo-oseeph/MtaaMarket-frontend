@@ -2,7 +2,7 @@
   position: relative;
   width: 100%; /* ← just 100%, no more 100vw */
   /* remove: margin-left: calc(-50vw + 50%); */
-  height: 82vh;
+  height: 100vh;
   min-height: 480px;
   display: flex;
   align-items: center;
@@ -155,7 +155,7 @@
 /* ── Mobile ── */
 @media (max-width: 768px) {
   .hero {
-    height: 62vh;
+    height: 75vh;
     min-height: 400px;
     align-items: center;
   }
@@ -173,6 +173,6 @@
 
 @media (max-width: 420px) {
   .hero {
-    height: 58vh;
+    height: 75vh;
   }
 }
