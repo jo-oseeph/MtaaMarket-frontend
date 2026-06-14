@@ -15,6 +15,7 @@ import Items from "./pages/Items";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import AdminRoute from "./routes/AdminRoute";
 import CreateListing from "./pages/CreateListing";
+import UserRoute from "./routes/UserRoute";
 
 import SellerDashboard from "./pages/Dashboard";
 import AdminDashboard from "./pages/AdminDashboard";
@@ -42,13 +43,13 @@ export default function App() {
         element={<ResetPassword />}
       /> */}
         <Route
-  path="/create-listing"
-  element={
-    <ProtectedRoute>
-      <CreateListing />
-    </ProtectedRoute>
-  }
-/>
+          path="/create-listing"
+          element={
+            <ProtectedRoute>
+              <CreateListing />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/auth/callback" element={<AuthCallback />} />
 
         <Route
@@ -62,9 +63,9 @@ export default function App() {
         <Route
           path="/dashboard"
           element={
-            <ProtectedRoute>
+            <UserRoute>
               <SellerDashboard />
-            </ProtectedRoute>
+            </UserRoute>
           }
         />
         <Route
