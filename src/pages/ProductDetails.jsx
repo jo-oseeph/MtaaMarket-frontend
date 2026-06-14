@@ -1,16 +1,11 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-
 import { getListingById } from "../services/listingApi";
-
-import { FaMapMarkerAlt } from "react-icons/fa";
-import { FaPhoneAlt } from "react-icons/fa";
-
+import { FaMapMarkerAlt, FaPhoneAlt, FaCalendarAlt, FaUser } from "react-icons/fa";
 import "./productDetails.css";
 
 export default function ProductDetails() {
   const { id } = useParams();
-
   const [listing, setListing] = useState(null);
   const [loading, setLoading] = useState(true);
   const [activeImage, setActiveImage] = useState("");
@@ -27,78 +22,112 @@ export default function ProductDetails() {
         setLoading(false);
       }
     };
-
     fetchListing();
   }, [id]);
 
-  if (loading) return <p>Loading...</p>;
-  if (!listing) return <p>Listing not found</p>;
+  if (loading) return (
+    <div className="pd-loading">
+      <div className="pd-spinner" />
+      <p>Loading listing…</p>
+    </div>
+  );
+
+  if (!listing) return (
+    <div className="pd-loading">
+      <p>Listing not found.</p>
+    </div>
+  );
+
+  const postedDate = listing.createdAt
+    ? new Date(listing.createdAt).toLocaleDateString("en-KE", {
+        day: "numeric", month: "long", year: "numeric"
+      })
+    : "";
 
   return (
-    <div className="product-page">
+    <div className="pd-page">
+      <div className="pd-wrapper">
 
-      <div className="product-container">
-
-        {/* LEFT */}
-        <div className="gallery">
-
-          <div className="main-image">
+        {/* ── Gallery ── */}
+        <div className="pd-gallery">
+          <div className="pd-main-image">
             <img src={activeImage} alt={listing.title} />
           </div>
-
-          <div className="thumbnails">
-            {listing.images?.map((img, index) => (
-              <img
-                key={index}
-                src={img}
-                alt=""
-                onClick={() => setActiveImage(img)}
-              />
-            ))}
-          </div>
-
+          {listing.images?.length > 1 && (
+            <div className="pd-thumbnails">
+              {listing.images.map((img, i) => (
+                <button
+                  key={i}
+                  className={`pd-thumb ${activeImage === img ? "pd-thumb--active" : ""}`}
+                  onClick={() => setActiveImage(img)}
+                  aria-label={`View image ${i + 1}`}
+                >
+                  <img src={img} alt="" />
+                </button>
+              ))}
+            </div>
+          )}
         </div>
 
-        {/* RIGHT */}
-        <div className="product-info">
+        {/* ── Details panel ── */}
+        <div className="pd-details">
 
-          <h2 className="price">
-            KES {listing.price?.toLocaleString()}
-          </h2>
+          {/* Price + title */}
+          <div className="pd-title-block">
+            <h1 className="pd-title">{listing.title}</h1>
+            <p className="pd-price">KES {listing.price?.toLocaleString()}</p>
+            
+          </div>
 
-          <h1>{listing.title}</h1>
+          <div className="pd-divider" />
 
-          <p className="location">
-            <FaMapMarkerAlt />
-            {listing.area}, {listing.county}
-          </p>
+          {/* Meta */}
+          <ul className="pd-meta">
+            <li>
+              <FaMapMarkerAlt className="pd-meta__icon" />
+              <span>{listing.area}, {listing.county}</span>
+            </li>
+            <li>
+              <FaCalendarAlt className="pd-meta__icon" />
+              <span>Posted {postedDate}</span>
+            </li>
+            <li>
+              <FaUser className="pd-meta__icon" />
+              <span>{listing.sellerName}</span>
+            </li>
+          </ul>
 
-          <p>Posted: {listing.createdAt ? new Date(listing.createdAt).toDateString() : ""}</p>
+          <div className="pd-divider" />
 
-          <p>Seller: {listing.sellerName}</p>
+          {/* Description */}
+          <div className="pd-description">
+            <h2 className="pd-section-title">Description</h2>
+            <p className="pd-description__text">{listing.description}</p>
+          </div>
 
-          <div className="contact-box">
-            <p>{listing.phoneNumber}</p>
+          <div className="pd-divider" />
 
-            <a
-              href={`tel:${listing.phoneNumber}`}
-              className="contact-btn"
-            >
+          {/* Contact — last */}
+          <div className="pd-contact">
+            <h2 className="pd-section-title">Contact seller</h2>
+            <div className="pd-contact__row">
+              <div className="pd-contact__info">
+                <span className="pd-contact__label">Seller</span>
+                <span className="pd-contact__value">{listing.sellerName}</span>
+              </div>
+              <div className="pd-contact__info">
+                <span className="pd-contact__label">Phone</span>
+                <span className="pd-contact__value">{listing.phoneNumber}</span>
+              </div>
+            </div>
+            <a href={`tel:${listing.phoneNumber}`} className="pd-contact-btn">
               <FaPhoneAlt />
-              Contact Owner
+              Call {listing.sellerName}
             </a>
           </div>
 
         </div>
-
       </div>
-
-      {/* DESCRIPTION */}
-      <section className="description-section">
-        <h3>Description</h3>
-        <p>{listing.description}</p>
-      </section>
-
     </div>
   );
 }

@@ -16,7 +16,7 @@ import Items from "./pages/Items";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import AdminRoute from "./routes/AdminRoute";
 import CreateListing from "./pages/CreateListing";
-import UserRoute from "./routes/UserRoute";
+import UserRoute from "./routes/UserRoutes";
 
 import SellerDashboard from "./pages/Dashboard";
 import AdminDashboard from "./pages/AdminDashboard";
