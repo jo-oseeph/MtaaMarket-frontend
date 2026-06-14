@@ -32,7 +32,6 @@ export default function Navbar() {
   return (
     <header className={`navbar ${scrolled ? "navbar--scrolled" : ""}`}>
       <div className="navbar-container">
-
         {/* Logo */}
         <Link to="/" className="navbar-logo" onClick={closeMenu}>
           <span className="navbar-logo__icon">M</span>
@@ -43,19 +42,40 @@ export default function Navbar() {
 
         {/* Desktop nav links */}
         <nav className="navbar-nav">
-          <NavLink to="/" end className={({ isActive }) => isActive ? "nav-link nav-link--active" : "nav-link"}>
+          <NavLink
+            to="/"
+            end
+            className={({ isActive }) =>
+              isActive ? "nav-link nav-link--active" : "nav-link"
+            }
+          >
             <FaHome /> Home
           </NavLink>
-          <NavLink to="/items" className={({ isActive }) => isActive ? "nav-link nav-link--active" : "nav-link"}>
+          <NavLink
+            to="/items"
+            className={({ isActive }) =>
+              isActive ? "nav-link nav-link--active" : "nav-link"
+            }
+          >
             <FaSearch /> Browse
           </NavLink>
-          {user && (
-            <NavLink to="/dashboard" className={({ isActive }) => isActive ? "nav-link nav-link--active" : "nav-link"}>
+          {user?.role === "user" && (
+            <NavLink
+              to="/dashboard"
+              className={({ isActive }) =>
+                isActive ? "nav-link nav-link--active" : "nav-link"
+              }
+            >
               <FaTachometerAlt /> Dashboard
             </NavLink>
           )}
           {user?.role === "admin" && (
-            <NavLink to="/admin" className={({ isActive }) => isActive ? "nav-link nav-link--active" : "nav-link"}>
+            <NavLink
+              to="/admin"
+              className={({ isActive }) =>
+                isActive ? "nav-link nav-link--active" : "nav-link"
+              }
+            >
               <FaShieldAlt /> Admin
             </NavLink>
           )}
@@ -101,19 +121,44 @@ export default function Navbar() {
       {/* Mobile drawer */}
       <div className={`navbar-drawer ${menuOpen ? "navbar-drawer--open" : ""}`}>
         <div className="drawer-links">
-          <NavLink to="/" end className={({ isActive }) => isActive ? "drawer-link drawer-link--active" : "drawer-link"} onClick={closeMenu}>
+          <NavLink
+            to="/"
+            end
+            className={({ isActive }) =>
+              isActive ? "drawer-link drawer-link--active" : "drawer-link"
+            }
+            onClick={closeMenu}
+          >
             <FaHome /> Home
           </NavLink>
-          <NavLink to="/items" className={({ isActive }) => isActive ? "drawer-link drawer-link--active" : "drawer-link"} onClick={closeMenu}>
+          <NavLink
+            to="/items"
+            className={({ isActive }) =>
+              isActive ? "drawer-link drawer-link--active" : "drawer-link"
+            }
+            onClick={closeMenu}
+          >
             <FaSearch /> Browse Items
           </NavLink>
-          {user && (
-            <NavLink to="/dashboard" className={({ isActive }) => isActive ? "drawer-link drawer-link--active" : "drawer-link"} onClick={closeMenu}>
+          {user?.role === "user" && (
+            <NavLink
+              to="/dashboard"
+              className={({ isActive }) =>
+                isActive ? "drawer-link drawer-link--active" : "drawer-link"
+              }
+              onClick={closeMenu}
+            >
               <FaTachometerAlt /> Dashboard
             </NavLink>
           )}
           {user?.role === "admin" && (
-            <NavLink to="/admin" className={({ isActive }) => isActive ? "drawer-link drawer-link--active" : "drawer-link"} onClick={closeMenu}>
+            <NavLink
+              to="/admin"
+              className={({ isActive }) =>
+                isActive ? "drawer-link drawer-link--active" : "drawer-link"
+              }
+              onClick={closeMenu}
+            >
               <FaShieldAlt /> Admin
             </NavLink>
           )}
@@ -122,22 +167,44 @@ export default function Navbar() {
         <div className="drawer-auth">
           {!user ? (
             <>
-              <Link to="/login" className="drawer-btn drawer-btn--ghost" onClick={closeMenu}>
+              <Link
+                to="/login"
+                className="drawer-btn drawer-btn--ghost"
+                onClick={closeMenu}
+              >
                 <FaSignInAlt /> Login
               </Link>
-              <Link to="/register" className="drawer-btn drawer-btn--primary" onClick={closeMenu}>
+              <Link
+                to="/register"
+                className="drawer-btn drawer-btn--primary"
+                onClick={closeMenu}
+              >
                 <FaUserPlus /> Create Account
               </Link>
             </>
           ) : (
             <>
-              <Link to="/create-listing" className="drawer-btn drawer-btn--sell" onClick={closeMenu}>
+              <Link
+                to="/create-listing"
+                className="drawer-btn drawer-btn--sell"
+                onClick={closeMenu}
+              >
                 <FaTag /> Sell an Item
               </Link>
-              <Link to="/profile" className="drawer-btn drawer-btn--user" onClick={closeMenu}>
+              <Link
+                to="/profile"
+                className="drawer-btn drawer-btn--user"
+                onClick={closeMenu}
+              >
                 <FaUserCircle /> {user.fullname?.split(" ")[0]}
               </Link>
-              <button className="drawer-btn drawer-btn--logout" onClick={() => { logout(); closeMenu(); }}>
+              <button
+                className="drawer-btn drawer-btn--logout"
+                onClick={() => {
+                  logout();
+                  closeMenu();
+                }}
+              >
                 <FaSignOutAlt /> Logout
               </button>
             </>
