@@ -2,6 +2,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import ScrollToTop from "./components/ScrollToTop";
 // import ForgotPassword from "./pages/ForgotPassword";
 // import ResetPassword from "./pages/ResetPassword";
 import Profile from "./pages/Profile";
@@ -24,6 +25,7 @@ export default function App() {
   return (
     <>
       <Navbar />
+       <ScrollToTop />
 
       <Routes>
         <Route path="/" element={<Home />} />
