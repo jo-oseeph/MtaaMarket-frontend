@@ -6,7 +6,7 @@
   box-sizing: border-box;
 }
 
-/* ── Page header ──────────────────────────────────── */
+/* Page header */
 .items-header {
   display: flex;
   flex-direction: column;
