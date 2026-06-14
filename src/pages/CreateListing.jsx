@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { createListing } from "../services/listingApi";
-import "./CreateListing.css";
+import "./Listings.css";
 
 export default function CreateListing() {
   const navigate = useNavigate();
