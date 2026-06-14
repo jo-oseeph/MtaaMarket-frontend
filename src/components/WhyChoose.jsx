@@ -6,7 +6,7 @@ import {
   FaUserCheck,
   FaArrowRight,
 } from "react-icons/fa";
-import "./whyChoose.css";
+import "./WhyChoose.css";
 
 export default function WhyChoose() {
   const navigate = useNavigate();

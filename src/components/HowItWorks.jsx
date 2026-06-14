@@ -8,7 +8,7 @@ import {
   FaChevronRight,
 } from "react-icons/fa";
 
-import "./howItWorks.css";
+import "./HowItWorks.css";
 
 export default function HowItWorks() {
   const navigate = useNavigate();

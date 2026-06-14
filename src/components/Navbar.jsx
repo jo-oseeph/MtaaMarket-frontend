@@ -67,7 +67,7 @@ export default function Navbar() {
             <FaHome /> Home
           </NavLink>
           <NavLink to="/items" className={({ isActive }) => `nav-link${isActive ? " nav-link--active" : ""}`}>
-            <FaSearch /> Browse
+            <FaSearch /> Browse Items
           </NavLink>
           {user && (
             <NavLink to="/create-listing" className={({ isActive }) => `nav-link${isActive ? " nav-link--active" : ""}`}>
@@ -164,7 +164,7 @@ export default function Navbar() {
             <FaHome /> Home
           </NavLink>
           <NavLink to="/items" className={({ isActive }) => `drawer-link${isActive ? " drawer-link--active" : ""}`} onClick={closeMenu}>
-            <FaSearch /> Browse
+            <FaSearch /> Browse Items
           </NavLink>
           {user && (
             <NavLink to="/create-listing" className={({ isActive }) => `drawer-link${isActive ? " drawer-link--active" : ""}`} onClick={closeMenu}>
