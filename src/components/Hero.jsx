@@ -18,7 +18,7 @@ export default function Hero() {
 </h1>
 
 <p>
-  Discover affordable electronics, furniture, fashion, appliances, and more from trusted local sellers. List your unused items in minutes and connect with buyers in your area.
+  Discover affordable electronics, furniture, fashion, appliances, and more from local sellers. List your unused items in minutes and connect with buyers in your area.
 </p>
 
 <div className="hero-actions">
