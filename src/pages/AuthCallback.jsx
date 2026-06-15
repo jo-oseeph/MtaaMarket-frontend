@@ -28,7 +28,7 @@ export default function AuthCallback() {
 
   return (
     <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
-      <p>Signing you in…</p>
+      <p>Signing you in….</p>
     </div>
   );
 }
