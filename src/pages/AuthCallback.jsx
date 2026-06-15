@@ -1,39 +1,34 @@
+// src/pages/AuthCallback.jsx
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import supabase from "../services/supabaseClient";
-import api from "../services/api";
+import { useAuth } from "../context/AuthContext";
 
 export default function AuthCallback() {
   const navigate = useNavigate();
+  const { syncUser } = useAuth();
 
   useEffect(() => {
-    const handleAuth = async () => {
-      const { data: { session } } =
-        await supabase.auth.getSession();
+    const handle = async () => {
+      const { data: { session }, error } = await supabase.auth.getSession();
 
-      if (!session) {
+      if (error || !session) {
         navigate("/login");
         return;
       }
 
-      try {
-        const { data } = await api.post("/auth/sync-user");
+      const mongoUser = await syncUser();
+      const role = mongoUser?.role;
 
-        const role = data?.role;
-
-        if (role === "admin") {
-          navigate("/admin");
-        } else {
-          navigate("/dashboard");
-        }
-      } catch (err) {
-        console.error(err);
-        navigate("/login");
-      }
+      navigate(role === "admin" ? "/admin" : "/dashboard");
     };
 
-    handleAuth();
-  }, []);
+    handle();
+  }, [navigate, syncUser]);
 
-  return <h2>Signing you in...</h2>;
+  return (
+    <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
+      <p>Signing you in…</p>
+    </div>
+  );
 }
